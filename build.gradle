@@ -25,19 +25,19 @@ apply plugin: 'com.palantir.docker'
 // This is used as the docker image prefix (org)
 group = 'springio'
 
-bootJar {
+jar {
     baseName = 'feed-api'
     version =  '0.1.0'
 }
 
 // tag::task[]
 task unpack(type: Copy) {
-    dependsOn bootJar
-    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    dependsOn jar
+    from(zipTree(tasks.jar.outputs.files.singleFile))
     into("build/dependency")
 }
 docker {
-    name "${project.group}/${bootJar.baseName}"
+    name "${project.group}/${jar.baseName}"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
