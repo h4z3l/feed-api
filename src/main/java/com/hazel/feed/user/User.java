@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.hazel.feed.post.Post;
 
 @Entity
 @Table(name = "users")
@@ -14,6 +17,9 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
 	
 	public User() {
 		super();
@@ -43,5 +49,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+}
 		
 }
